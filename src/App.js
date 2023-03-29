@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useReducer, useState } from 'react';
+import reducer from './reducer/reducer';
 import './App.css';
 
 function App() {
+  const [{ todos, todoCount }, dispatch] = useReducer(reducer, {
+    todos: [],
+    todoCount: 0,
+  });
+  const [text, setText] = useState('');
+  const onSubmit = (e) =>{
+    e.preventDefault()
+    // console.log('form submit');
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <form onSubmit={onSubmit}>
+        <input
+          type='text'
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      <button type='submit'>Submit</button>
+      </form>
+      <p>Input text : {text}</p>
     </div>
   );
 }
